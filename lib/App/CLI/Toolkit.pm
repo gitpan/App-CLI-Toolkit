@@ -7,7 +7,7 @@ use Carp;
 use File::Basename;
 use Getopt::Long;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 our $AUTOLOAD;
 
 sub new {
@@ -220,6 +220,12 @@ sub _exit_with_usage {
 =head1 NAME
 
 App::CLI::Toolkit - a helper module for generating command-line utilities
+
+=head1 DESCRIPTION
+
+App::CLI::Toolkit is designed to take the hassle out of writing command-line apps
+in Perl. It handles the parsing of both parameters and options (see below for
+the distinction) and generates usage information from the details you give it.
 
 =head1 SYNOPSIS
 

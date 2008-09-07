@@ -4,21 +4,19 @@ use strict;
 
 use Carp;
 use File::Spec;
-use Test::More tests => 16;
+use Test::More tests => 15;
 
-BEGIN {
-	use_ok( 'App::CLI::Toolkit' );
-}
 %ENV = (); # required for running under -T
 
 my $result;
-my $testapp = File::Spec->catfile(findup('Makefile.PL'), 't', 'test-app');
+my $rootdir = findup('Makefile.PL');
+my $testapp = "perl -I$rootdir/lib " . File::Spec->catfile($rootdir, 't', 'test-app');
 my $fail_str = 'FAILED';
 
 # Test that insufficient mandatory args result in failure
-ok(qx( $testapp >/dev/null     || /bin/echo -n $fail_str ) eq $fail_str, 'Running with no params fails');
-ok(qx( $testapp a >/dev/null   || /bin/echo -n $fail_str ) eq $fail_str, 'Running with 1 param fails');
-ok(qx( $testapp a b >/dev/null || /bin/echo -n $fail_str ) eq $fail_str, 'Running with 2 params fails');
+isnt(system( "$testapp     >/dev/null" ), 0, 'Running with no params fails');
+isnt(system( "$testapp a   >/dev/null" ), 0, 'Running with 1 param fails');
+isnt(system( "$testapp a b >/dev/null" ), 0, 'Running with 2 params fails');
 
 # Testing params
 ok(qx( $testapp a b c )   eq 'a|b|c|-|-|-|-|-|', 'Running with 3 params succeeds');
