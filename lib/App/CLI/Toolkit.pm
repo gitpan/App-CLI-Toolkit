@@ -7,7 +7,7 @@ use Carp;
 use File::Basename;
 use Getopt::Long;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 our $AUTOLOAD;
 
 sub new {
